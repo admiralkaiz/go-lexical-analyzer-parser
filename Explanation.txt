@@ -1,0 +1,39 @@
+//Explanation
+Program di atas terdiri dari dua bagian utama: lexical analyzer dan parser. Lexical analyzer bertugas untuk memecah input string 
+menjadi token-token yang dapat diidentifikasi oleh parser. Parser kemudian mengambil token-token tersebut dan menghasilkan kode 
+yang sesuai dengan aturan sintaks yang telah ditentukan.
+
+Sebagai contoh, kami menginputkan `var x = 5 if x > 3 { var y = 10 } else { var z = 20 }`. Output yang dihasilkan adalah seperti ini:
+[{2 var} {3 x} {5 =} {4 5} {0 if} {3 x} {3 >} {4 3} {1 else} {3 {} {2 var} {3 z} {5 =} {4 20} {3 }}]
+var x = 5 
+if x > 3 {
+} else {
+{ var z = 20 }
+
+Output [{2 var} {3 x} {5 =} {4 5} {0 if} {3 x} {3 >} {4 3} {3 {} {2 var} {3 y} {5 =} {4 10} {3 }} {1 else} {3 {} {2 var} {3 z} {5 =} 
+{4 20} {3 }}] menunjukkan hasil dari fungsi lexer yang memecah input string menjadi token-token yang dapat diidentifikasi oleh parser.
+Setiap token direpresentasikan sebagai pasangan nilai {Type, Value}. Type menunjukkan jenis token, seperti IF, ELSE, VAR,
+IDENTIFIER, INTEGER, atau OPERATOR. Nilai Type ditampilkan sebagai angka dalam output, di mana setiap angka mewakili salah satu
+jenis token tersebut. Misalnya, 0 mewakili token IF, 1 mewakili token ELSE, dan seterusnya. Value menunjukkan nilai dari token 
+tersebut. Misalnya, untuk token {2 var}, Type-nya adalah 2 yang mewakili token VAR, dan  Value-nya adalah "var" yang merupakan 
+nilai dari token tersebut. Jadi, output tersebut menunjukkan bahwa input string telah berhasil dipecah menjadi token-token yang 
+dapat diidentifikasi oleh parser.
+
+//CFG
+Untuk CFG :
+CFG menunjukkan bagaimana simbol-simbol terminal (seperti "var", "if", "else", "+", "-", "*", "/", ">", dan seterusnya)
+dan non-terminal (seperti program, statements, statement, var_declaration, if_statement, else_statement, expression, term,
+operator, identifier, dan integer) dapat digabungkan untuk membentuk kalimat yang valid dalam bahasa tersebut.
+
+//FA
+Untuk FA :
+Rancangan FA  menunjukkan bagaimana FA dapat berpindah dari satu state ke state lainnya berdasarkan simbol input yang 
+diterima. Misalnya, jika FA sedang berada pada state START dan menerima simbol input "var", maka FA akan berpindah ke 
+state VAR_DECLARATION. Jika FA sedang berada pada state VAR_DECLARATION dan menerima simbol input identifier,
+maka FA akan berpindah ke state IDENTIFIER, dan seterusnya. 
+Untuk maksud dari BLOCK_START dan BLOCK_END adalah BLOCK_START menunjukkan bahwa FA sedang berada di dalam blok kode yang diawali 
+dengan karakter "{", sedangkan state BLOCK_END menunjukkan bahwa FA telah mencapai akhir dari blok kode tersebut yang ditandai 
+dengan karakter "}". Misalnya, dalam input string if x > 3 { var y = 10 } else { var z = 20 }, terdapat dua blok kode yang diawali
+dengan karakter "{" dan diakhiri dengan karakter "}". Ketika FA memproses input string tersebut, ia akan berpindah ke 
+state BLOCK_START ketika menemukan karakter "{", dan kemudian berpindah ke state BLOCK_END ketika menemukan karakter "}".
+
